@@ -1,3 +1,5 @@
+import { arrayBuffer } from "stream/consumers";
+
 /**
  * Consume an array of numbers, and return a new array containing
  * JUST the first and last number. If there are no elements, return
@@ -5,7 +7,8 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    if(numbers.length === 0) return [];
+    return [numbers[0], numbers[numbers.length-1]];
 }
 
 /**
@@ -13,7 +16,7 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    return numbers.map((num: number): number => num*3);
 }
 
 /**
@@ -21,7 +24,11 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    return numbers.map((str: string): number=>  {
+                                                const num = parseInt(str); 
+                                                if(isNaN(num)) return 0;
+                                                return num
+                                                });
 }
 
 /**
@@ -32,7 +39,8 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    //lol this one is pretty nasty but it works
+    return amounts.map((str: string): string=> str.replaceAll('$', '')).map((str: string): number => isNaN(parseInt(str)) ? 0 : parseInt(str));
 };
 
 /**
@@ -41,7 +49,8 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    const noQuestions = messages.filter((str: string): boolean=> !str.endsWith('?'))
+    return noQuestions.map((str: string):string=> str.endsWith('!') ? str.toUpperCase() : str);
 };
 
 /**
@@ -49,7 +58,7 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    return (words.filter((str: string): boolean=> str.length<4).length);
 }
 
 /**
@@ -58,7 +67,9 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    return colors.filter((str: string): boolean => {
+        return !(str === "red" || str === "green" || str === "blue");
+    }).length == 0;
 }
 
 /**
@@ -69,7 +80,10 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    const sum = addends.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
+    if(sum===0) return "0=0";
+    const eq = (sum.toString()+'=')+(addends.map((num: number): string => num.toString()).join('+'))
+    return eq;
 }
 
 /**
@@ -82,5 +96,12 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    const ind = values.findIndex((num: number): boolean => num<0);
+    //This part feels a bit jank. Have to make a new value if ind is -1 because it cannot be modified
+    const searchind = ind===-1 ? values.length : ind;
+    const addends = values.slice(0, searchind);
+    const sum = addends.reduce((currentTotal: number, num: number) => currentTotal+num, 0);
+    const newvals = [...values];
+    newvals.splice(searchind+1, 0, sum);
+    return newvals;
 }
