@@ -18,7 +18,7 @@ function App(): JSX.Element {
                 Jack Kingham&apos;s CISC275 Website
             </header>
             <hr></hr>
-            {/* <DoubleHalf></DoubleHalf> */}
+            <DoubleHalf></DoubleHalf>
             <hr></hr>
             <ChooseTeam></ChooseTeam>
             <hr></hr>
