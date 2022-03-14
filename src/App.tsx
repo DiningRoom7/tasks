@@ -1,6 +1,11 @@
 import React from "react";
 import "./App.css";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { ChangeType } from "./components/ChangeType";
+import { RevealAnswer } from "./components/RevealAnswer";
+import { StartAttempt } from "./components/StartAttempt";
+import { TwoDice } from "./components/TwoDice";
+import { CycleHoliday } from "./components/CycleHoliday";
+import { Counter } from "./components/Counter";
 
 function App(): JSX.Element {
     return (
@@ -8,32 +13,18 @@ function App(): JSX.Element {
             <header className="App-header">
                 Jack Kingham&apos;s CISC275 Website
             </header>
-            <h1>Starter website. Hello World!</h1>
-            <Container>
-                <Row>
-                    <Col>
-                        Column 1<div className="ColumnRects"></div>
-                    </Col>
-                    <Col>
-                        Column 2<div className="ColumnRects"></div>
-                    </Col>
-                </Row>
-            </Container>
-            <img
-                src="https://i.ytimg.com/vi/c7oV1T2j5mc/maxresdefault.jpg"
-                alt="Look at this cool landscape"
-                className="Landscape"
-            ></img>
-            <Button onClick={() => console.log("Hello World!")}>
-                Log Hello World
-            </Button>
-            <ul>
-                <li>Cheeseburgers</li>
-                <li>Hot Dogs</li>
-                <li>Donuts</li>
-                <li>Bar Fightin</li>
-                <li>Bug Collection</li>
-            </ul>
+            <hr></hr>
+            <Counter></Counter>
+            <hr />
+            <RevealAnswer></RevealAnswer>
+            <hr />
+            <StartAttempt></StartAttempt>
+            <hr />
+            <TwoDice></TwoDice>
+            <hr />
+            <ChangeType></ChangeType>
+            <hr />
+            <CycleHoliday></CycleHoliday>
         </div>
     );
 }
