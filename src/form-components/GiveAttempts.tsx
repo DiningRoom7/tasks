@@ -6,6 +6,11 @@ export function GiveAttempts(): JSX.Element {
 
     const [requestedAttempts, setRequestedAttempts] = useState<number>(0);
 
+    function gainAttempts() {
+        if (!isNaN(requestedAttempts))
+            setNumAttempts(requestedAttempts + numAttempts);
+    }
+
     return (
         <div>
             <div>Remaining Attempts: {numAttempts}</div>
@@ -27,13 +32,7 @@ export function GiveAttempts(): JSX.Element {
                 >
                     Use
                 </Button>
-                <Button
-                    onClick={() =>
-                        setNumAttempts(requestedAttempts + numAttempts)
-                    }
-                >
-                    Gain
-                </Button>
+                <Button onClick={gainAttempts}>Gain</Button>
             </div>
         </div>
     );

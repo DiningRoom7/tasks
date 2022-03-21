@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 export function EditMode(): JSX.Element {
     const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -21,7 +21,7 @@ export function EditMode(): JSX.Element {
             />
             {!isEdit && (
                 <div>
-                    {studentName} is {isStudent && "not"} a student
+                    {studentName} is {!isStudent && "not"} a student
                 </div>
             )}
             {isEdit && (
@@ -36,6 +36,13 @@ export function EditMode(): JSX.Element {
                             ) => setStudentName(event.target.value)}
                         />
                     </Form.Group>
+                    <Form.Check
+                        type="checkbox"
+                        id="is-student-check"
+                        label="Is Student?"
+                        checked={isStudent}
+                        onChange={() => setIsStudent(!isStudent)}
+                    />
                 </div>
             )}
         </div>
