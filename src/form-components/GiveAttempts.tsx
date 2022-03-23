@@ -4,11 +4,12 @@ import { Form, Button } from "react-bootstrap";
 export function GiveAttempts(): JSX.Element {
     const [numAttempts, setNumAttempts] = useState<number>(3);
 
-    const [requestedAttempts, setRequestedAttempts] = useState<number>(0);
+    const [requestedAttempts, setRequestedAttempts] = useState<string>("0");
 
     function gainAttempts() {
-        if (!isNaN(requestedAttempts))
-            setNumAttempts(requestedAttempts + numAttempts);
+        if (!isNaN(parseInt(requestedAttempts))) {
+            setNumAttempts(parseInt(requestedAttempts) + numAttempts);
+        }
     }
 
     return (
@@ -21,7 +22,7 @@ export function GiveAttempts(): JSX.Element {
                     value={requestedAttempts}
                     placeholder="Enter requested number of additional attempts"
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        setRequestedAttempts(event.target.valueAsNumber)
+                        setRequestedAttempts(event.target.value)
                     }
                 />
             </Form.Group>
